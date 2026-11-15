@@ -1,3 +1,20 @@
 spring:
   application:
-    name: OrderFlow
+    name: IndusFlow
+  profiles:
+    active: dev
+  config:
+    import: optional:config/application-dev.yml
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+#SLA 就是服务时效承诺。
+indusflow:
+  fulfillment:
+#    	服务商开始处理的 SLA 时限
+    acceptance-sla: PT2H
+#    	超时扫描间隔
+    overdue-scan-interval-ms: 60000
+    overdue-scan-batch-size: 100
+    scan-enabled: true

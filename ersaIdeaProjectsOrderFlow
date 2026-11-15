@@ -1,0 +1,19 @@
+warning: in the working copy of 'AGENTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config/application-dev.example.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/PROJECT_STATUS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pom.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/java/com/itheima/orderflow/OrderFlowApplication.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/main/resources/application.yml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/test/java/com/itheima/orderflow/MySqlConnectionTest.java', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/test/java/com/itheima/orderflow/OrderFlowApplicationTests.java', LF will be replaced by CRLF the next time Git touches it
+ AGENTS.md                                          | 23 [32m++++++[m[31m-[m
+ README.md                                          | 70 [32m++++++++++++++++++++[m[31m--[m
+ config/application-dev.example.yml                 |  4 [32m+[m[31m-[m
+ docs/PROJECT_STATUS.md                             | 48 [32m+++++++++++++[m[31m--[m
+ pom.xml                                            | 19 [32m++++++[m
+ .../itheima/orderflow/OrderFlowApplication.java    | 10 [32m++++[m
+ src/main/resources/application.yml                 | 19 [32m+++++[m[31m-[m
+ .../com/itheima/orderflow/MySqlConnectionTest.java |  2 [32m+[m[31m-[m
+ .../orderflow/OrderFlowApplicationTests.java       |  2 [32m+[m[31m-[m
+ 9 files changed, 180 insertions(+), 17 deletions(-)

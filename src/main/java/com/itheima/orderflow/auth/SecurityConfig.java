@@ -50,6 +50,8 @@ class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/orders/{orderNo}/cancel").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/api/admin/orders/{orderNo}/start",
                                 "/api/admin/orders/{orderNo}/complete").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/admin/fulfillment/dashboard").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.HEAD, "/api/admin/fulfillment/dashboard").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/orders", "/api/orders/{orderNo}").hasRole("USER")
                         .requestMatchers(HttpMethod.HEAD, "/api/orders", "/api/orders/{orderNo}").hasRole("USER")
                         .anyRequest().authenticated())

@@ -5,12 +5,28 @@ spring:
     active: dev
   config:
     import: optional:config/application-dev.yml
+  data:
+    redis:
+      # 由 Spring Boot 创建 Redis 连接对象；连接地址等本地信息放在 config/application-dev.yml。
+      # 建连超时与命令响应超时分别限制 Redis 不可用时的等待，缓存类捕获异常后查询 MySQL。
+      connect-timeout: 300ms
+      timeout: 500ms
+      repositories:
+        # 当前使用 StringRedisTemplate 直接操作字符串，无需 Redis Repository 扫描。
+        enabled: false
 
 pagehelper:
   helper-dialect: mysql
   reasonable: false
 #SLA 就是服务时效承诺。
 indusflow:
+  dashboard:
+    cache:
+      # @Value 读取这些参数；测试配置默认关闭，缓存专项测试按需开启。
+      enabled: true
+      # 结果键实际 TTL 为 45 秒加 0～15 秒随机抖动，版本键不设置 TTL。
+      ttl: 45s
+      ttl-jitter-seconds: 15
   fulfillment:
 #    	服务商开始处理的 SLA 时限
     acceptance-sla: PT2H

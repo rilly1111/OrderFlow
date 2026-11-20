@@ -44,6 +44,12 @@
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <!-- 提供 Spring Data Redis 与 Lettuce 客户端，版本沿用 Boot 依赖管理。
+                 Boot 自动配置连接工厂和 StringRedisTemplate，业务代码通过构造器使用它们。 -->
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>${mybatis-plus.version}</version>

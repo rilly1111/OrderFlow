@@ -87,6 +87,14 @@ mvn '-Dspring.profiles.active=dev' '-Dtest=AuthIntegrationTests' test
 
 条件更新检查订单 ID、原状态和原版本，超时更新还检查截止时间。更新成功才写状态日志，日志失败会回滚该次状态变更。`version` 乐观锁保护单条业务记录。未来的分布式锁可协调多个实例的调度执行，业务更新仍由 `version` 检查保护。
 
+## 履约看板缓存
+
+管理员看板 `GET /api/admin/fulfillment/dashboard` 按日期范围缓存完整响应，命中时保留响应里的原始 `asOf`。本地 Redis 连接配置可参考 `config/application-dev.example.yml`，保存在私有的 `config/application-dev.yml` 中。缓存开关、基础 TTL 和随机抖动见 `application.yml` 的 `indusflow.dashboard.cache`。
+
+Redis 版本键为 `indusflow:dashboard`，结果键为 `indusflow:dashboard:v{version}:{from}:{toExclusive}`。支付、开始处理和标记超时成功提交后递增版本。旧版本的结果等 TTL 到期。Redis 访问失败时，看板使用 MySQL 统计结果。
+
+本机 Redis 可连接时，在 IDEA 给 `FulfillmentDashboardCache.getDashboard()` 和 `FulfillmentStatsService.getDashboard()` 打断点。使用尚未缓存的日期范围发送管理员请求，再在 TTL 内用相同参数请求一次。首次请求会进入统计方法，第二次请求返回缓存响应，`asOf` 与第一次相同。测试配置默认关闭缓存，专项测试按需开启并使用 Mock Redis。
+
 ## 维修业务集成测试
 
 将 `dev` 数据源指向本机已完成 `003` 迁移的 `order_flow` 数据库。从项目根目录使用 JDK 17 运行测试。
@@ -95,7 +103,7 @@ mvn '-Dspring.profiles.active=dev' '-Dtest=AuthIntegrationTests' test
 mvn '-Dspring.profiles.active=dev' test
 ```
 
-最近一次全量测试使用隔离的 MySQL 8.0.46，87 项全部通过。SLA 场景使用受控的时间，直接验证扫描、并发和回滚结果。本机开发业务库的迁移留待审核后执行。详见 [项目进度](docs/PROJECT_STATUS.md)。
+最近一次全量测试使用 JDK 17、`dev` Profile 和隔离的 MySQL 8.0.46，109 项全部通过。另在 Redis 连接失败的情况下重跑 6 项看板集成测试，全部通过。真实 Redis 命中和失效联调待本机服务可用后进行。详见 [项目进度](docs/PROJECT_STATUS.md)。
 
 ## 后续阶段
 
